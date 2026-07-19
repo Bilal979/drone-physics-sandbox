@@ -29,6 +29,10 @@ class Vector3:
         z = self.z / scalar
         return Vector3(x,y,z)
 
+    # Add dunder method to check for equality
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y and self.z == other.z
+
     def magnitude(self):
         return math.sqrt(self.x**2 + self.y**2 + self.z**2)
 

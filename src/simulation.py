@@ -34,6 +34,6 @@ class Simulation:
 
 
     def log_state(self):
-        self.history.append({"time":f'{self.time}', "position":self.drone.state.position, "velocity":self.drone.state.velocity, "acceleration":self.drone.state.acceleration})
+        self.history.append({"time":self.time, "position":self.drone.state.position, "velocity":self.drone.state.velocity, "acceleration":self.drone.state.acceleration})
 
 
