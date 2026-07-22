@@ -9,7 +9,7 @@ def test_drone_initial_state():
     velocity = Vector3(0, 0, 0)
     acceleration = Vector3(0, 0, 0)
     mass = constants.DEFAULT_MASS
-    thrust = 10
+    thrust = (0,0,10)
 
     # Act
     drone = Drone(mass, thrust)
@@ -21,7 +21,7 @@ def test_drone_initial_state():
 
 def test_set_thrust():
     # Arrange
-    thrust = 10.0
+    thrust = (0,0,10.0)
     mass = constants.DEFAULT_MASS
 
     # Act

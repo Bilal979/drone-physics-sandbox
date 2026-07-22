@@ -1,11 +1,12 @@
 from src.drone import Drone
 from src.simulation import Simulation
+from src.vectors import Vector3
 from src import constants
 import pytest
 
 def test_simulation_history_length():
     # Arrange
-    drone = Drone(constants.DEFAULT_MASS, 10.0)
+    drone = Drone(constants.DEFAULT_MASS, Vector3(0,0,10.0))
     sim = Simulation(drone, 0.02)
 
     # Act
@@ -16,7 +17,7 @@ def test_simulation_history_length():
 
 def test_simulation_time_advances():
     # Arrange
-    drone = Drone(constants.DEFAULT_MASS, 10.0)
+    drone = Drone(constants.DEFAULT_MASS, Vector3(0,0,10.0))
     sim = Simulation(drone, 0.02)
 
     # Act
@@ -27,7 +28,7 @@ def test_simulation_time_advances():
 
 def test_drone_climbs_with_high_thrust():
     # Arrange
-    drone = Drone(constants.DEFAULT_MASS, 100.0)
+    drone = Drone(mass=constants.DEFAULT_MASS, thrust=Vector3(0, 0, 100.0))
     sim = Simulation(drone, 0.02)
 
     # Act
@@ -38,7 +39,7 @@ def test_drone_climbs_with_high_thrust():
 
 def test_drone_falls_with_zero_thrust():
     # Arrange
-    drone = Drone(constants.DEFAULT_MASS, 0.0)
+    drone = Drone(constants.DEFAULT_MASS, Vector3(0, 0, 0.0))
     sim = Simulation(drone, 0.02)
 
     # Act
@@ -50,7 +51,7 @@ def test_drone_falls_with_zero_thrust():
 def test_drone_hovers_with_balanced_thrust():
     # Arrange
     thrust = constants.DEFAULT_MASS * constants.GRAVITY
-    drone = Drone(constants.DEFAULT_MASS, thrust)
+    drone = Drone(constants.DEFAULT_MASS, Vector3(0,0,thrust))
     sim = Simulation(drone)
 
     # Act

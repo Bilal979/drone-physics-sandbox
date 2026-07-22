@@ -10,10 +10,17 @@ class PhysicsEngine:
         force = mass * self.gravity
         return Vector3(0, 0, -1*force)
 
-    def compute_net_force(self, thrust:float, mass:float) -> Vector3:
+    def compute_drag(self, velocity:Vector3) -> Vector3:
+        speed = velocity.magnitude()
+        drag = velocity *(-constants.DRAG_COEFFICIENT * speed)
+        return drag
+
+
+    def compute_net_force(self, thrust:Vector3, mass:float, velocity:Vector3) -> Vector3:
         # thrust is a force
-        thrust_vector = Vector3(0, 0, thrust)
-        net_force = thrust_vector + self.compute_gravity(mass)
+        #thrust_vector = Vector3(0, 0, thrust)
+        drag = self.compute_drag(velocity)
+        net_force = thrust + self.compute_gravity(mass) + drag
         return net_force
 
     def compute_acceleration(self, net_force:Vector3, mass:float) -> Vector3:

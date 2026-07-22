@@ -10,13 +10,13 @@ class DroneState:
 
 
 class Drone:
-    def __init__(self, mass, thrust):
+    def __init__(self, mass:float, thrust:Vector3):
         self.mass = mass
         self.thrust = thrust
         self.state = DroneState()
 
 
-    def set_thrust(self, thrust):
+    def set_thrust(self, thrust:Vector3):
         self.thrust = thrust
 
     def apply_force(self, force: Vector3):

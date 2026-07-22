@@ -12,7 +12,7 @@ class Simulation:
 
     def step(self):
         # 1 compute net force
-        net_force = self.engine.compute_net_force(self.drone.thrust, self.drone.mass)
+        net_force = self.engine.compute_net_force(self.drone.thrust, self.drone.mass, self.drone.state.velocity)
 
         # 2 apply force to drone
         self.drone.apply_force(net_force)

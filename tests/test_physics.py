@@ -20,8 +20,9 @@ def test_hover_thrust_produces_zero_net_force():
     
     # Act
     hover_thrust = constants.DEFAULT_MASS * constants.GRAVITY
+    hover_thrust = Vector3(0, 0, hover_thrust)
     engine = PhysicsEngine()
-    net_force = engine.compute_net_force(hover_thrust, mass)
+    net_force = engine.compute_net_force(hover_thrust, mass, Vector3(0, 0, 0))
 
     # Assert
     assert net_force == Vector3(0, 0, 0)
@@ -31,13 +32,14 @@ def test_net_force_with_climb_thrust():
     thrust_force = 15.0
     mass = constants.DEFAULT_MASS
     net_thrust_force = thrust_force - mass * constants.GRAVITY
+    net_thrust_force = Vector3(0, 0, net_thrust_force)
 
     # Act
     engine = PhysicsEngine()
-    net_force = engine.compute_net_force(thrust_force, mass)
+    net_force = engine.compute_net_force(Vector3(0, 0, thrust_force), mass, Vector3(0, 0, 0))
 
     # Assert
-    assert net_force == Vector3(0, 0, net_thrust_force)
+    assert net_force == net_thrust_force
 
 def test_acceleration_equals_force_over_mass():
     # Arrange
