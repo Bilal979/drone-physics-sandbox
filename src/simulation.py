@@ -1,16 +1,23 @@
 from src.drone import Drone
 from src.physics import PhysicsEngine
+from src.flight_controller import FlightController
 from src import constants
+import csv
 
 class Simulation:
-    def __init__(self, drone: Drone, dt=constants.DEFAULT_DT):
+    def __init__(self, drone: Drone, flight_controller: FlightController, dt=constants.DEFAULT_DT):
         self.drone = drone
         self.dt = dt
         self.engine = PhysicsEngine()
         self.time = 0.0
         self.history = []
+        self.flight_controller = flight_controller
 
     def step(self):
+        # 0 compute and set thrust
+        thrust = self.flight_controller.update(self.time)
+        self.drone.set_thrust(thrust)
+
         # 1 compute net force
         net_force = self.engine.compute_net_force(self.drone.thrust, self.drone.mass, self.drone.state.velocity)
 
@@ -37,3 +44,8 @@ class Simulation:
         self.history.append({"time":self.time, "position":self.drone.state.position, "velocity":self.drone.state.velocity, "acceleration":self.drone.state.acceleration})
 
 
+def export_csv(self, filepath:str):
+    with open(filepath, 'w', newline='') as f:
+        writer = csv.writer(f)
+
+        

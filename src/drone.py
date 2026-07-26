@@ -27,3 +27,8 @@ class Drone:
         self.state.velocity = self.state.velocity + self.state.acceleration*dt
         self.state.position = self.state.position + self.state.velocity*dt
 
+        # Add guard to prevent negative z value
+        if self.state.position.z <= 0.0:
+            self.state.position.z = 0.0
+            self.state.velocity.z = 0.0
+

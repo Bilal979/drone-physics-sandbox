@@ -73,6 +73,20 @@ def test_update_changes_position():
     # Assert
     assert drone.state.position == Vector3(0, 0, thrust/mass)
 
+def test_ground_constraint():           # Drone with 0 thrust should not fall below z=0
+    # Arrange
+    drone = Drone(mass=1.0,thrust=Vector3(0,0,0.0))
+
+    # Act
+    for _ in range(100):
+        drone.apply_force(Vector3(0, 0, -9.81))  # gravity
+        drone.update(0.02)
+
+    # Assert
+    assert drone.state.position.z >= 0
+    assert drone.state.velocity.z >= 0
+
+
 
 
 
