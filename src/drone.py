@@ -19,8 +19,8 @@ class Drone:
     def set_thrust(self, thrust:Vector3):
         self.thrust = thrust
 
-    def apply_force(self, force: Vector3):
-        self.state.acceleration = force/self.mass
+    def set_acceleration(self, acceleration: Vector3):
+        self.state.acceleration = acceleration
 
     def update(self, dt):
         # update velocity and position using current acceleration

@@ -28,6 +28,9 @@ def main():
     for state in history:
         print(f"Time: {state['time']:.2f} Position: {state['position']}")
 
+    # 5 expot history to csv
+    sim.export_csv("files/history.csv")
+
     
 if __name__ == "__main__":
     main()
