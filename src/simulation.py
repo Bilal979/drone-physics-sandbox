@@ -15,12 +15,11 @@ class Simulation:
         self.flight_controller = flight_controller
 
     def step(self):
-        # 0 compute and set thrust
-        thrust = self.flight_controller.update(self.time)
-        self.drone.set_thrust(thrust)
+        # 0 compute thrust
+        thrust = self.flight_controller.update(self.time, self.drone.state)
 
         # 1 compute net force
-        net_force = self.engine.compute_net_force(self.drone.thrust, self.drone.mass, self.drone.state.velocity)
+        net_force = self.engine.compute_net_force(thrust, self.drone.mass, self.drone.state.velocity)
         
         # 2 calculate acceleration
         acceleration = self.engine.compute_acceleration(net_force, self.drone.mass)

@@ -1,6 +1,7 @@
 from enum import Enum
 from src.vectors import Vector3
 from src import constants
+from src.drone import DroneState
 
 class FlightMode(Enum):
     IDLE = 'idle'
@@ -19,11 +20,15 @@ class FlightController:
         self.schedule.append((start_time, mode))
         self.schedule.sort(key=lambda x: x[0])
 
-    def update(self, current_time:float):
+    def update(self, current_time:float, drone_state:DroneState) -> Vector3:
         for i in range(len(self.schedule)):
             if self.schedule[i][0] > current_time:
                 break
             self.mode = self.schedule[i][1]
+
+        # apply state-based override
+        if self.mode == FlightMode.LANDING and drone_state.position.z <= 0.0:
+            self.mode = FlightMode.IDLE
 
         # update and return thrust
         return self._thrust_for_mode()
