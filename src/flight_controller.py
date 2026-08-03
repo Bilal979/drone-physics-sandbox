@@ -2,17 +2,20 @@ from enum import Enum
 from src.vectors import Vector3
 from src import constants
 from src.drone import DroneState
+from src.waypoint_navigator import WaypointNavigator
 
 class FlightMode(Enum):
     IDLE = 'idle'
     TAKEOFF = 'takeoff'
     HOVER = 'hover'
     LANDING = 'landing'
+    NAVIGATE = 'navigate'
 
 
 class FlightController:
-    def __init__(self, mass:float):
+    def __init__(self, mass:float, navigator:WaypointNavigator=None):
         self.mass = mass
+        self.navigator = navigator
         self.mode = FlightMode.IDLE
         self.schedule = []  # list of tuples (time, FlightMode)
 
@@ -25,6 +28,14 @@ class FlightController:
             if self.schedule[i][0] > current_time:
                 break
             self.mode = self.schedule[i][1]
+
+        # apply navigator thrust overide
+        if self.mode == FlightMode.NAVIGATE and self.navigator is not None:
+            if self.navigator.completed:
+                self.mode = FlightMode.LANDING
+            else:
+                thrust = self.navigator.update(drone_state)
+                return thrust
 
         # apply state-based override
         if self.mode == FlightMode.LANDING and drone_state.position.z <= 0.0:
