@@ -9,9 +9,9 @@ from src.visualizer import Visualizer
 waypoints = [
     Vector3(2, 2, 5),
     Vector3(4, 4, 5),
-    # Vector3(10, 10, 5),
-    # Vector3(0, 10, 5),
-    # Vector3(0, 0, 5),
+    Vector3(10, 10, 5),
+    Vector3(0, 10, 5),
+    Vector3(0, 3, 5),
 ]
 
 def main():
@@ -38,7 +38,7 @@ def main():
     sim = Simulation(drone, flight_controller, constants.DEFAULT_DT)
 
     # 3 run simulation
-    history = sim.run(32.0)
+    history = sim.run(27.0)
 
     # 4 print history
     # for state in history:
@@ -49,7 +49,11 @@ def main():
 
     # 6 visualize history
     vis = Visualizer(csv_path="files/history.csv", waypoints=[(waypoint.x, waypoint.y, waypoint.z) for waypoint in waypoints])
-    vis.plot_path()
+    # vis.plot_path()
+    vis.animate()
+
+    # 7 save animation as gif
+    vis.save_gif('files/flight.gif')
     
 if __name__ == "__main__":
     main()

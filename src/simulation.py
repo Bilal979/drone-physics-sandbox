@@ -44,17 +44,18 @@ class Simulation:
 
 
     def log_state(self, net_force:Vector3):
-        self.history.append({"time":self.time, "position":self.drone.state.position, "velocity":self.drone.state.velocity, "acceleration":self.drone.state.acceleration, 'net_force':net_force, 'drone_mode':self.flight_controller.mode})
+        velocity_magnitude = self.drone.state.velocity.magnitude()
+        self.history.append({"time":self.time, "position":self.drone.state.position, "velocity":self.drone.state.velocity, "acceleration":self.drone.state.acceleration, 'net_force':net_force, 'drone_mode':self.flight_controller.mode, 'velocity_magnitude':velocity_magnitude})
 
 
     def export_csv(self, filepath:str):
         with open(filepath, 'w', newline='') as f:
             writer = csv.writer(f)
             # write the header row
-            writer.writerow(['time', 'position_x', 'position_y', 'position_z', 'velocity_x', 'velocity_y', 'velocity_z', 'acceleration_x', 'acceleration_y', 'acceleration_z', 'net_force_x', 'net_force_y', 'net_force_z', 'drone_mode'])
+            writer.writerow(['time', 'position_x', 'position_y', 'position_z', 'velocity_x', 'velocity_y', 'velocity_z', 'acceleration_x', 'acceleration_y', 'acceleration_z', 'net_force_x', 'net_force_y', 'net_force_z', 'drone_mode', 'velocity_magnitude'])
             # write one new row per history entry
             for entry in self.history:
-                writer.writerow([entry['time'], entry['position'].x, entry['position'].y, entry['position'].z, entry['velocity'].x, entry['velocity'].y, entry['velocity'].z, entry['acceleration'].x, entry['acceleration'].y, entry['acceleration'].z, entry['net_force'].x, entry['net_force'].y, entry['net_force'].z, entry['drone_mode'].value])
+                writer.writerow([entry['time'], entry['position'].x, entry['position'].y, entry['position'].z, entry['velocity'].x, entry['velocity'].y, entry['velocity'].z, entry['acceleration'].x, entry['acceleration'].y, entry['acceleration'].z, entry['net_force'].x, entry['net_force'].y, entry['net_force'].z, entry['drone_mode'].value, entry['velocity_magnitude']])
 
     
         
