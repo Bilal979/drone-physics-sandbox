@@ -7,3 +7,5 @@ LANDING_THRUST = DEFAULT_MASS * GRAVITY * 0.8
 HOVER_THRUST = DEFAULT_MASS * GRAVITY
 WAYPOINT_TOLERANCE = 0.5    # in meters
 CRUISE_THRUST = 12.0        # thrust magnitude during waypoint flight (in N)
+KP = 2.0
+KD = 3.5

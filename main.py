@@ -4,13 +4,14 @@ from src.vectors import Vector3
 from src.flight_controller import FlightController, FlightMode
 from src import constants
 from src.waypoint_navigator import WaypointNavigator
+from src.visualizer import Visualizer
 
 waypoints = [
-    Vector3(0, 0, 5),
-    Vector3(10, 0, 5),
-    Vector3(10, 10, 5),
-    Vector3(0, 10, 5),
-    Vector3(0, 0, 5),
+    Vector3(2, 2, 5),
+    Vector3(4, 4, 5),
+    # Vector3(10, 10, 5),
+    # Vector3(0, 10, 5),
+    # Vector3(0, 0, 5),
 ]
 
 def main():
@@ -40,12 +41,15 @@ def main():
     history = sim.run(32.0)
 
     # 4 print history
-    for state in history:
-        print(f"Time: {state['time']:.2f} Position: {state['position']}")
+    # for state in history:
+    #     print(f"Time: {state['time']:.2f} Position: {state['position']}")
 
     # 5 expot history to csv
     sim.export_csv("files/history.csv")
 
+    # 6 visualize history
+    vis = Visualizer(csv_path="files/history.csv", waypoints=[(waypoint.x, waypoint.y, waypoint.z) for waypoint in waypoints])
+    vis.plot_path()
     
 if __name__ == "__main__":
     main()

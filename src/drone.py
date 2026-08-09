@@ -26,4 +26,7 @@ class Drone:
         if self.state.position.z <= 0.0:
             self.state.position.z = 0.0
             self.state.velocity.z = 0.0
+            # also kill horizontal velocity on ground contact
+            self.state.velocity.x = 0.0
+            self.state.velocity.y = 0.0
 
