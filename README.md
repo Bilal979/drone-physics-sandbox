@@ -66,8 +66,8 @@ pytest -v
 
 | Color | Mode |
 |-------|------|
-| 🟢 Green | Takeoff |
-| 🟡 Yellow | Hover |
-| 🔵 Blue | Navigate |
-| 🟠 Orange | Landing |
-| ⚫ Gray | Idle |
+| Green | Takeoff |
+| Yellow | Hover |
+| Blue | Navigate |
+| Orange | Landing |
+| Gray | Idle |
